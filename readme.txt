@@ -55,6 +55,8 @@ bg_images: Display images as background images. Default = 0 (foreground images)
 
 category: Display the featured images from posts of a specific category. Provide the category name as the parameter value.
 
+file_ids: Provide a command delimited list of WP media library IDs. (You can get this by creating a gallery within the post. The gallery short specifies a list of media ids to be used).
+
 
 
 
@@ -66,3 +68,6 @@ v2018.01 - Initial version
 v2019.01 - Added support for progressive-image JS library to increase loading times with large galleries
 
 v2019.02 - Added plugin updater code (via Github repo)
+
+v2019.03 - Added the file_ids param. Allows you to pass a command delimited list of media IDs for the required photos. For example, create a WP Gallery within the post and use the 'ids' param as the file_ids param.
+

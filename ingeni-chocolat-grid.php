@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Ingeni Chocolat Grid Gallery
-Version: 2019.02
+Version: 2019.03
 Plugin URI: http://ingeni.net
 Author: Bruce McKinnon - ingeni.net
 Author URI: http://ingeni.net
@@ -32,6 +32,7 @@ v2019.01 - Added support for progressive-image JS library to increase loading ti
 v2019.02 - Added plugin updater code (via Github repo).
 					- Add some support CSS for background images, where the image is portrait oriented.
 					- Fixed use of $ instead of jQuery.
+v2019.03 - Added the file_ids param. Allows you to pass a command delimited list of media IDs for the required photos. For example, create a WP Gallery within the post and use the 'ids' param as the file_ids param.
 */
 
 add_shortcode( 'ingeni-chocolat','do_ingeni_chocolat' );
@@ -47,6 +48,7 @@ function do_ingeni_chocolat( $atts ) {
 			'arrows' => 0,
 			'file_list' => "",
 			'file_path' => "",
+			'file_ids' => "",
 			'start_path' => $def_path,
 			'bg_images' => 0,
 			'category' => "",
@@ -56,6 +58,26 @@ function do_ingeni_chocolat( $atts ) {
 
 	$photos = array();
 	$home_path = "";
+	fb_log('file ids='.$params['file_ids']);
+
+	// If a list of media ID, get the source URLs and create a file_list
+	if (strlen($params['file_ids']) > 0) {
+
+		$media_ids = array();
+		$media_ids = explode(",",$params['file_ids']);
+
+		$source_urls = "";
+		$idx = 0;
+
+
+		foreach($media_ids as $media_id) {
+			$source_urls .= wp_get_attachment_url( $media_id ) . ',';
+		}
+		$source_urls = substr($source_urls,0,strlen($source_urls)-1);
+
+		$params['file_list'] = $source_urls;
+		$params['file_path'] = "";
+	}
 
 	ingeni_chocolat_get_photos( $params['category'], $params['file_list'], $params['max_thumbs'], $params['start_path'], $params['source_path'], $photos, $home_path, $params['progressive'] );
 	
@@ -161,7 +183,6 @@ function ingeni_chocolat_get_photos($category, $file_list, $max_thumbs, $start_p
 
 	} elseif ( strlen($file_list) > 0 ) {
 		$photo_collection = explode(",",$file_list);
-		$home_path = $file_path;
 
 	} else {
 		try {
