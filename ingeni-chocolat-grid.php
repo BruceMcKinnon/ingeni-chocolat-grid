@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Ingeni Chocolat Grid Gallery
-Version: 2019.03
+Version: 2020.01
 Plugin URI: http://ingeni.net
 Author: Bruce McKinnon - ingeni.net
 Author URI: http://ingeni.net
@@ -33,6 +33,8 @@ v2019.02 - Added plugin updater code (via Github repo).
 					- Add some support CSS for background images, where the image is portrait oriented.
 					- Fixed use of $ instead of jQuery.
 v2019.03 - Added the file_ids param. Allows you to pass a command delimited list of media IDs for the required photos. For example, create a WP Gallery within the post and use the 'ids' param as the file_ids param.
+v2020.01 - Support .jpeg files.
+				 - Fixed loading of plugin updater code. Moved to the init() hook.
 */
 
 add_shortcode( 'ingeni-chocolat','do_ingeni_chocolat' );
@@ -58,7 +60,7 @@ function do_ingeni_chocolat( $atts ) {
 
 	$photos = array();
 	$home_path = "";
-	fb_log('file ids='.$params['file_ids']);
+	//fb_log('file ids='.$params['file_ids']);
 
 	// If a list of media ID, get the source URLs and create a file_list
 	if (strlen($params['file_ids']) > 0) {
@@ -96,7 +98,7 @@ function do_ingeni_chocolat( $atts ) {
 	clearstatcache();
 
 	foreach ($photos as $photo) {
-		if ( (strpos(strtolower($photo),'.jpg') !== false) || (strpos(strtolower($photo),'.png') !== false) ) {		
+		if ( (strpos(strtolower($photo),'.jpg') !== false) || (strpos(strtolower($photo),'.jpeg') !== false) || (strpos(strtolower($photo),'.png') !== false) ) {		
 			if ($params['bg_images'] > 0) {
 
 				if ( $params['lightbox'] > 0 ) {
@@ -229,7 +231,7 @@ function ingeni_load_chocolat() {
 		'ingeni-chocolat-grid'
 	);
 }
-add_action( 'wp_enqueue_scripts', 'ingeni_load_chocolat' );
+add_action( 'init', 'ingeni_load_chocolat' );
 
 
 // Plugin activation/deactivation hooks

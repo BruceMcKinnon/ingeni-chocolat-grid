@@ -4,7 +4,7 @@ Contributors: Bruce McKinnon
 Tags: carousel, slick slider
 Requires at least: 4.8
 Tested up to: 5.1.1
-Stable tag: 2019.02
+Stable tag: 2020.01
 
 A Chocolat lightbox based grid and lightbox for Foundation-based Wordpress themes.
 
@@ -70,4 +70,7 @@ v2019.01 - Added support for progressive-image JS library to increase loading ti
 v2019.02 - Added plugin updater code (via Github repo)
 
 v2019.03 - Added the file_ids param. Allows you to pass a command delimited list of media IDs for the required photos. For example, create a WP Gallery within the post and use the 'ids' param as the file_ids param.
+
+v2020.01 - Support for .jpeg files.
+	- Fixed loading of plugin updater code. Moved to the init() hook.
 
