@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Ingeni Chocolat Grid Gallery
-Version: 2020.01
+Version: 2020.02
 Plugin URI: http://ingeni.net
 Author: Bruce McKinnon - ingeni.net
 Author URI: http://ingeni.net
@@ -35,6 +35,7 @@ v2019.02 - Added plugin updater code (via Github repo).
 v2019.03 - Added the file_ids param. Allows you to pass a command delimited list of media IDs for the required photos. For example, create a WP Gallery within the post and use the 'ids' param as the file_ids param.
 v2020.01 - Support .jpeg files.
 				 - Fixed loading of plugin updater code. Moved to the init() hook.
+v2020.02 - Added the cell_class parameter - Allows use with the Foundation Float grid. Defaults to 'cell' for use with the XY Grid.
 */
 
 add_shortcode( 'ingeni-chocolat','do_ingeni_chocolat' );
@@ -56,6 +57,7 @@ function do_ingeni_chocolat( $atts ) {
 			'category' => "",
 			'lightbox' => 1,
 			'progressive' => 1,
+			'cell_class' => 'cell',
 		), $atts ) ;
 
 	$photos = array();
@@ -102,23 +104,23 @@ function do_ingeni_chocolat( $atts ) {
 			if ($params['bg_images'] > 0) {
 
 				if ( $params['lightbox'] > 0 ) {
-					$sync1 .= '<div class="cell small-12 medium-6 large-4"><a class="chocolat-image" href="'. $home_path . $photo .'"><div class="bg-item" style="background-image:url(\''. $home_path . $photo .'\')" ></div></a></div>';				
+					$sync1 .= '<div class="'.$params['cell_class'].' small-12 medium-6 large-4"><a class="chocolat-image" href="'. $home_path . $photo .'"><div class="bg-item" style="background-image:url(\''. $home_path . $photo .'\')" ></div></a></div>';				
 				} else {
-					$sync1 .= '<div class="cell small-12 medium-6 large-4"><div class="bg-item" style="background-image:url(\''. $home_path . $photo .'\')" ></div></div>';				
+					$sync1 .= '<div class="'.$params['cell_class'].' small-12 medium-6 large-4"><div class="bg-item" style="background-image:url(\''. $home_path . $photo .'\')" ></div></div>';				
 				}
 
 			} else {
 				if ( $params['lightbox'] > 0 ) {
 					if ( file_exists( getcwd() . $params['source_path'] . 'tiny/' . $photo ) ) {
-						$sync1 .= '<div class="cell small-12 medium-6 large-4"><a class="chocolat-image progressive replace" href="'. $home_path . $photo .'"><img src="'. $home_path . 'tiny/' . $photo .'" class="preview"></img></a></div>';
+						$sync1 .= '<div class="'.$params['cell_class'].' small-12 medium-6 large-4"><a class="chocolat-image progressive replace" href="'. $home_path . $photo .'"><img src="'. $home_path . 'tiny/' . $photo .'" class="preview"></img></a></div>';
 					} else {
-						$sync1 .= '<div class="cell small-12 medium-6 large-4"><a class="chocolat-image" href="'. $home_path . $photo .'"><img src="'. $home_path . $photo .'"></img></a></div>';
+						$sync1 .= '<div class="'.$params['cell_class'].' small-12 medium-6 large-4"><a class="chocolat-image" href="'. $home_path . $photo .'"><img src="'. $home_path . $photo .'"></img></a></div>';
 					}
 				} else {
 					if ( file_exists( getcwd() . $params['source_path'] . 'tiny/' . $photo ) ) {
-						$sync1 .= '<div class="cell small-12 medium-6 large-4"><a class="progressive replace" href="'. $home_path . $photo .'"><img src="'. $home_path . 'tiny/' . $photo .'" ></img></a></div>';
+						$sync1 .= '<div class="'.$params['cell_class'].' small-12 medium-6 large-4"><a class="progressive replace" href="'. $home_path . $photo .'"><img src="'. $home_path . 'tiny/' . $photo .'" ></img></a></div>';
 					} else {
-						$sync1 .= '<div class="cell small-12 medium-6 large-4"><img src="'. $home_path . $photo .'" ></img></div>';
+						$sync1 .= '<div class="'.$params['cell_class'].' small-12 medium-6 large-4"><img src="'. $home_path . $photo .'" ></img></div>';
 					}
 				}
 			}

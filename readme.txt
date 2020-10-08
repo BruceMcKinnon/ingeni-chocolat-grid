@@ -4,7 +4,7 @@ Contributors: Bruce McKinnon
 Tags: carousel, slick slider
 Requires at least: 4.8
 Tested up to: 5.1.1
-Stable tag: 2020.01
+Stable tag: 2020.02
 
 A Chocolat lightbox based grid and lightbox for Foundation-based Wordpress themes.
 
@@ -57,6 +57,9 @@ category: Display the featured images from posts of a specific category. Provide
 
 file_ids: Provide a command delimited list of WP media library IDs. (You can get this by creating a gallery within the post. The gallery short specifies a list of media ids to be used).
 
+cell_class parameter - Allows use with the Foundation Float grid. Defaults to 'cell' for use with the XY Grid.
+
+
 
 
 
@@ -73,4 +76,7 @@ v2019.03 - Added the file_ids param. Allows you to pass a command delimited list
 
 v2020.01 - Support for .jpeg files.
 	- Fixed loading of plugin updater code. Moved to the init() hook.
+
+v2020.02 - Added the cell_class parameter - Allows use with the Foundation Float grid. Defaults to 'cell' for use with the XY Grid.
+
 
